@@ -7,12 +7,13 @@ use Yii;
 use frontend\models\VacancyResponseForm;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\Vacancy;
 use common\models\VacancyResponse;
-
+use frontend\models\CreateVacancyForm;
 
 use yii\web\UploadedFile;
 
@@ -31,7 +32,7 @@ class VacancyController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup'],
+                'only' => ['logout', 'signup', 'create-vacancy'], // добавляем ваше действие
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -42,6 +43,20 @@ class VacancyController extends Controller
                         'actions' => ['logout'],
                         'allow' => true,
                         'roles' => ['@'],
+                    ],
+                    [
+                        'actions' => ['create-vacancy'], // определяем действие
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->is_manager == true;
+                        },
+                    ],
+                    [
+                        'actions' => ['edit-vacancy'],
+                        'allow' => true,
+                        'matchCallback' => function ($rule, $action) {
+                            return Yii::$app->user->identity->is_manager == true;
+                        },
                     ],
                 ],
             ],
@@ -109,6 +124,74 @@ class VacancyController extends Controller
                 'model' => $model,
             ]);
         }
+    
+        public function actionCreateVacancy()
+        {
+            $model = new CreateVacancyForm();
+        
+            if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+                $vacancy = new Vacancy();
+                $vacancy->position_name = $model->position_name;
+                $vacancy->description = $model->description;
+                $vacancy->salary = $model->salary;
+                $vacancy->requirements = $model->requirements;
+                $vacancy->responsibilities = $model->responsibilities;
+                $vacancy->work_schedule = $model->work_schedule;
+                $vacancy->academic_direction = $model->academic_direction;
+                $vacancy->location = $model->location;
+                $vacancy->contact_info = $model->contact_info;
+                $vacancy->publication_date = $model->publication_date;
+                $vacancy->application_deadline = $model->application_deadline;
+                $vacancy->is_active = $model->is_active;
+                $vacancy->company = $model->company;
+        
+                if ($vacancy->save()) {
+                    Yii::$app->session->setFlash('success', 'Вакансия успешно создана.');
+                    return $this->redirect(['detail', 'id' => $vacancy->id]); // Предполагается, что есть действие view для отображения деталей вакансии
+                } else {
+                    Yii::$app->session->setFlash('error', 'Произошла ошибка при сохранении вакансии.');
+                }
+            }
+        
+            return $this->render('createVacancy', [
+                'model' => $model,
+            ]);
+        }
+
+        public function actionEditVacancy($id)
+        {
+            $vacancy = Vacancy::findOne($id);
+            if ($vacancy === null) {
+                throw new NotFoundHttpException('Вакансия не найдена.'); // Обработка случая, когда вакансия с указанным идентификатором не найдена
+            }
+
+            $formModel = new CreateVacancyForm();
+            $formModel->attributes = $vacancy->attributes; // Заполняем атрибуты модели формы значениями из модели вакансии
+
+            if ($formModel->load(Yii::$app->request->post()) && $formModel->validate()) { // Загружаем данные из формы и валидируем модель формы
+                // Обновляем атрибуты модели вакансии значениями из модели формы
+                $vacancy->attributes = $formModel->attributes;
+                if ($vacancy->save()) { // Сохраняем модель вакансии
+                    Yii::$app->session->setFlash('success', 'Вакансия успешно отредактирована.');
+                    return $this->redirect(['detail', 'id' => $vacancy->id]);
+                }
+            }
+
+            return $this->render('editVacancy', [
+                'model' => $formModel,
+            ]);
+        }
+        //maybe to ResponseController
+        public function actionResponses()
+        {
+            $vacancyResponses = VacancyResponse::find()->all();
+            return $this->render('responses', [
+                'vacancyResponses' => $vacancyResponses,
+            ]);
+        }
+
+
+
 
     
 }

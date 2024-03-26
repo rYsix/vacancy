@@ -41,6 +41,8 @@ return [
             'showScriptName' => false,
             'rules' => [
                 'vacancy/<id:\d+>' => 'vacancy/detail',
+                'vacancy/create-vacancy' => 'vacancy/create-vacancy',
+                'vacancy/edit-vacancy/<id:\d+>' => 'vacancy/edit-vacancy'
             ],
         ],
     ],

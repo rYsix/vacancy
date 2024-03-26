@@ -46,7 +46,7 @@ $responseForm = new VacancyResponseForm(); // Создаем экземпляр 
                                         <span class="badge bg-danger">Закрыта</span>
                                     <?php endif; ?>
                                     <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->is_manager): ?>
-                                        <span class="badge bg-primary"><a href="<?= \yii\helpers\Url::to(['/site/about', 'id' => $vacancy->id]) ?>" class="text-white">Редактировать</a></span>
+                                        <span class="badge bg-primary"><a href="<?= \yii\helpers\Url::to(['vacancy/edit-vacancy', 'id' => $vacancy->id]) ?>" class="text-white">Редактировать</a></span>
                                     <?php endif; ?>
                                 </h4>
                                 <hr>

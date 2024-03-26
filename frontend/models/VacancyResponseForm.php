@@ -19,7 +19,7 @@ class VacancyResponseForm extends Model
             [['full_name', 'email'], 'string', 'max' => 255],
             ['email', 'email', 'message' => 'Введите корректный адрес электронной почты.'],
             ['about', 'string', 'max' => 1000],
-            ['attachment_file', 'file', 'extensions' => ['pdf'], 'message' => 'Пожалуйста, прикрепите файл в формате PDF.'],
+            ['attachment_file', 'file', 'extensions' => ['pdf','png'], 'message' => 'Пожалуйста, прикрепите файл в формате PDF.'],
         ];
     }
     public static function tableName()

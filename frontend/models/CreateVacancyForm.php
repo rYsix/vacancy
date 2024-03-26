@@ -2,60 +2,54 @@
 
 namespace frontend\models;
 
+use Yii;
 use yii\base\Model;
 
-class VacancyResponseForm extends Model
+class CreateVacancyForm extends Model
 {
-    public $full_name;
-    public $about;
-    public $email;
-    public $attachment_file; // Для хранения пути к загруженному файлу
-    public $uploaded_file; // Для хранения объекта загруженного файла
+    public $id;
+    public $position_name;
+    public $description;
+    public $salary;
+    public $requirements;
+    public $responsibilities;
+    public $work_schedule;
+    public $academic_direction;
+    public $location;
+    public $contact_info;
+    public $publication_date;
+    public $application_deadline;
+    public $is_active;
+    public $company;
 
     public function rules()
     {
         return [
-            [['full_name', 'about', 'email'], 'required', 'message' => 'Пожалуйста, заполните поле "{attribute}".'],
-            [['full_name', 'email'], 'string', 'max' => 255],
-            ['email', 'email', 'message' => 'Введите корректный адрес электронной почты.'],
-            ['about', 'string', 'max' => 1000],
-            ['attachment_file', 'file', 'extensions' => ['pdf'], 'message' => 'Пожалуйста, прикрепите файл в формате PDF.'],
+            [['position_name', 'description'], 'required', 'message' => 'Пожалуйста, заполните поле "{attribute}".'],
+            [['salary'], 'number'],
+            [['requirements', 'responsibilities'], 'string'],
+            [['work_schedule', 'academic_direction', 'location', 'contact_info', 'company'], 'string', 'max' => 255],
+            [['publication_date', 'application_deadline'], 'safe'],
+            [['is_active'], 'boolean'],
         ];
-    }
-    public static function tableName()
-    {
-        return 'yii2_vacancy_response';
     }
 
     public function attributeLabels()
     {
         return [
-            'full_name' => 'ФИО',
-            'about' => 'О себе',
-            'email' => 'Email',
-            'attachment_file' => 'Резюме',
+            'position_name' => 'Название позиции',
+            'description' => 'Описание',
+            'salary' => 'Заработная плата',
+            'requirements' => 'Требования',
+            'responsibilities' => 'Обязанности',
+            'work_schedule' => 'График работы',
+            'academic_direction' => 'Научное направление',
+            'location' => 'Местоположение',
+            'contact_info' => 'Контактная информация',
+            'publication_date' => 'Дата публикации',
+            'application_deadline' => 'Крайний срок подачи заявок',
+            'is_active' => 'Активно',
+            'company' => 'Компания',
         ];
     }
-    public function upload($vacancyId)
-    {
-        if ($this->validate()) {
-            if ($this->attachment_file) {
-                $fileName = 'uploads/vacancy_responces/' . str_replace(' ', '_', $this->full_name) . '_to_vacancy_' . $vacancyId . '/' . 'resume' . '.' . $this->attachment_file->extension;
-                $directory = dirname($fileName);
-                if (!is_dir($directory)) {
-                    mkdir($directory, 0777, true);
-                }
-                $this->attachment_file->saveAs($fileName);
-                return true;
-            } else {
-                // Файл не был загружен
-                return true;
-            }
-        } else {
-            return false;
-        }
-    }
-
-
-
 }

@@ -39,19 +39,19 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
+        ['label' => 'О сайте', 'url' => ['/site/about']],
         ['label' => 'Обратная связь', 'url' => ['/site/contact']],
     ];
     
     $isManager = !Yii::$app->user->isGuest && Yii::$app->user->identity->is_manager;
     if ($isManager) {
-        $menuItems[] = ['label' => 'Создать вакансию', 'url' => ['/site/create-vacancy']];
-        $menuItems[] = ['label' => 'Просмотреть вакансии', 'url' => ['/site/view-vacancies']];
+        $menuItems[] = ['label' => 'Создать вакансию', 'url' => ['/vacancy/create-vacancy']];
+        $menuItems[] = ['label' => 'Просмотреть отклики', 'url' => ['/vacancy/responses']];
     }
     
     // Если пользователь гость, добавляем пункт меню "Signup"
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
+        $menuItems[] = ['label' => 'Зерегистрироваться', 'url' => ['/site/signup']];
     }
     
 
