@@ -38,12 +38,15 @@ $responseForm = new VacancyResponseForm(); // Создаем экземпляр 
                     <div class="col-md-7">
                         <div class="card">
                             <div class="card-body">
-                                <h4 class="card-title">
-                                    <i class="fa fa-briefcase"></i> <?= Html::encode($vacancy->position_name) ?> 
+                            <h4 class="card-title">
+                                <i class="fa fa-briefcase"></i> <?= Html::encode($vacancy->position_name) ?> 
                                     <?php if ($vacancy->is_active): ?>
                                         <span class="badge bg-success">Активно</span>
                                     <?php else: ?>
                                         <span class="badge bg-danger">Закрыта</span>
+                                    <?php endif; ?>
+                                    <?php if (!Yii::$app->user->isGuest && Yii::$app->user->identity->is_manager): ?>
+                                        <span class="badge bg-primary"><a href="<?= \yii\helpers\Url::to(['/site/about', 'id' => $vacancy->id]) ?>" class="text-white">Редактировать</a></span>
                                     <?php endif; ?>
                                 </h4>
                                 <hr>

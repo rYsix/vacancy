@@ -24,6 +24,6 @@ class Vacancy extends ActiveRecord
 
     public static function tableName()
     {
-        return 'yii2_vacancy';
+        return '{{%vacancy}}';
     }
 }

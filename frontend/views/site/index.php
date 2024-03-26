@@ -50,3 +50,30 @@ $this->title = 'Вакансии';
         box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2); /* Эффект тени */
     }
 </style>
+
+<style>
+    .row.justify-content-center {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.card {
+    flex: 1;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.vacancy-card-link {
+    display: flex;
+    height: 100%;
+}
+
+.vacancy-card {
+    width: 100%;
+}
+
+</style>

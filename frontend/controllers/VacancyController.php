@@ -79,22 +79,30 @@ class VacancyController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 $model->attachment_file = UploadedFile::getInstance($model, 'attachment_file');
-
-                if ($model->upload($id)) {
-                    // Ваш код для сохранения данных из формы в базу данных
-                    // Например:
-
-                    $response = new VacancyResponse();
-                    $response->vacancy_id = $id;
-                    $response->full_name = $model->full_name;
-                    $response->about = $model->about;
-                    $response->email = $model->email;
-                    $response->attachment_path = 'uploads/' . $model->attachment_file->baseName . '.' . $model->attachment_file->extension;
-                    $response->save();
-                    Yii::$app->session->setFlash('success', 'Ваш отклик успешно отправлен.');
-                    return $this->refresh(); 
+            
+                // Вызываем функцию upload() и сохраняем возвращенный путь
+                $uploadedFilePath = $model->upload($id);
+            
+                // Ваш код для сохранения данных из формы в базу данных
+                $response = new VacancyResponse();
+                $response->vacancy_id = $id;
+                $response->full_name = $model->full_name;
+                $response->about = $model->about;
+                $response->email = $model->email;
+            
+                // Проверяем, был ли возвращен путь
+                if ($uploadedFilePath !== null) {
+                    // Если путь был возвращен, сохраняем его
+                    $response->attachment_path = $uploadedFilePath;
                 }
+            
+                // Сохраняем запись в базу данных
+                $response->save();
+            
+                Yii::$app->session->setFlash('success', 'Ваш отклик успешно отправлен.');
+                return $this->refresh(); 
             }
+            
 
             return $this->render('detail', [
                 'vacancy' => $vacancy,

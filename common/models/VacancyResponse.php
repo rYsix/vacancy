@@ -21,7 +21,7 @@ class VacancyResponse extends ActiveRecord
 
     public static function tableName()
     {
-        return 'yii2_vacancy_response';
+        return '{{%vacancy_response}}';
     }
     
     public function upload()

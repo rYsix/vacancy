@@ -37,24 +37,27 @@ class VacancyResponseForm extends Model
         ];
     }
     public function upload($vacancyId)
-    {
-        if ($this->validate()) {
-            if ($this->attachment_file) {
-                $fileName = 'uploads/vacancy_responces/' . str_replace(' ', '_', $this->full_name) . '_to_vacancy_' . $vacancyId . '/' . 'resume' . '.' . $this->attachment_file->extension;
-                $directory = dirname($fileName);
-                if (!is_dir($directory)) {
-                    mkdir($directory, 0777, true);
-                }
-                $this->attachment_file->saveAs($fileName);
-                return true;
+{
+    if ($this->validate()) {
+        if ($this->attachment_file && $this->attachment_file->tempName !== null) {
+            $fileName = 'uploads/vacancy_responces/' . str_replace(' ', '_', $this->full_name) . '_to_vacancy_' . $vacancyId . '/' . 'resume' . '.' . $this->attachment_file->extension;
+            $directory = dirname($fileName);
+            if (!is_dir($directory)) {
+                mkdir($directory, 0777, true);
+            }
+            if ($this->attachment_file->saveAs($fileName)) {
+                return $fileName;
             } else {
-                // Файл не был загружен
-                return true;
+                return null;
             }
         } else {
-            return false;
+            return null;
         }
+    } else {
+        return false; 
     }
+}
+
 
 
 
