@@ -21,7 +21,6 @@ class m240325_162407_create_vacancy_responce_table extends Migration
             'vacancy_id' => $this->integer(),
         ]);
 
-        // Создание внешнего ключа для поля vacancy_id
         $this->addForeignKey(
             'fk-vacancy_response-vacancy_id',
             '{{%vacancy_response}}',
@@ -37,7 +36,6 @@ class m240325_162407_create_vacancy_responce_table extends Migration
      */
     public function safeDown()
     {
-        // Удаление внешнего ключа
         $this->dropForeignKey('fk-vacancy_response-vacancy_id', '{{%vacancy_response}}');
 
         $this->dropTable('{{%vacancy_response}}');

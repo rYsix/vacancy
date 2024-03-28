@@ -26,7 +26,7 @@ class m240325_100447_create_vacancy_table extends Migration
             'publication_date' => $this->dateTime(),
             'application_deadline' => $this->dateTime(),
             'is_active' => $this->boolean()->defaultValue(true),
-            'company' => $this->string(255), // Добавляем поле для компании
+            'company' => $this->string(255), 
         ]);
     }
 

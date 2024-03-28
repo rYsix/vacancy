@@ -4,10 +4,11 @@
 
 $this->title = 'Вакансии';
 ?>
+
 <div class="site-index">
     <div class=" bg-transparent rounded-3">
         <div class="container-fluid py-5 text-center">
-            <h1 class="display-4">Вакантные Вакансии</h1>
+            <h1 class="display-4">Вакантные Позиции</h1>
             <p class="fs-5 fw-light">Только для студентов АУЭС</p>
         </div>
     </div>
@@ -35,7 +36,7 @@ $this->title = 'Вакансии';
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Откликнуться</button>
                                     </div>
-                                    <small class="text-muted">Публикация: <?= Yii::$app->formatter->asDate($item->publication_date) ?></small>
+                                    <small class="text-muted">Публикация: <?=  Yii::$app->formatter->asDate($item->publication_date) ?></small>
                                 </div>
                             </div>
                         </div>

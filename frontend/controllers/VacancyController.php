@@ -14,6 +14,7 @@ use yii\filters\AccessControl;
 use common\models\Vacancy;
 use common\models\VacancyResponse;
 use frontend\models\CreateVacancyForm;
+use yii\data\ActiveDataProvider;
 
 use yii\web\UploadedFile;
 
@@ -32,38 +33,18 @@ class VacancyController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout', 'signup', 'create-vacancy'], // добавляем ваше действие
+                'only' => ['logout', 'signup','create-vacancy','edit-vacancy','responses'], // добавляем ваше действие
                 'rules' => [
                     [
-                        'actions' => ['signup'],
-                        'allow' => true,
-                        'roles' => ['?'],
-                    ],
-                    [
-                        'actions' => ['logout'],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
-                    [
-                        'actions' => ['create-vacancy'], // определяем действие
+                        'actions' => ['create-vacancy','edit-vacancy','responses'], // определяем действие
                         'allow' => true,
                         'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->identity->is_manager == true;
+                            if (Yii::$app->user->isGuest || Yii::$app->user->identity->is_manager === false) {
+                                throw new \yii\web\ForbiddenHttpException('Доступ запрещен');
+                            }
+                            return true;
                         },
                     ],
-                    [
-                        'actions' => ['edit-vacancy'],
-                        'allow' => true,
-                        'matchCallback' => function ($rule, $action) {
-                            return Yii::$app->user->identity->is_manager == true;
-                        },
-                    ],
-                ],
-            ],
-            'verbs' => [
-                'class' => VerbFilter::class,
-                'actions' => [
-                    'logout' => ['post'],
                 ],
             ],
         ];
@@ -184,9 +165,15 @@ class VacancyController extends Controller
         //maybe to ResponseController
         public function actionResponses()
         {
-            $vacancyResponses = VacancyResponse::find()->all();
+            $dataProvider = new ActiveDataProvider([
+                'query' => VacancyResponse::find(),
+                'pagination' => [
+                    'pageSize' => 10, // Укажите количество элементов на странице
+                ],
+            ]);
+
             return $this->render('responses', [
-                'vacancyResponses' => $vacancyResponses,
+                'dataProvider' => $dataProvider,
             ]);
         }
 

@@ -20,7 +20,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>  
     <title><?= Html::encode($this->title) ?></title>
-    <link rel="icon" href="/frontend/web/aues.ico"><!-- 32×32 -->
+    <link rel="icon" href="/frontend/web/aues.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <?php $this->head() ?>
 </head>
@@ -39,8 +39,8 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
-        ['label' => 'О сайте', 'url' => ['/site/about']],
-        ['label' => 'Обратная связь', 'url' => ['/site/contact']],
+        //['label' => 'О сайте', 'url' => ['/site/about']],
+        //['label' => 'Обратная связь', 'url' => ['/site/contact']],
     ];
     
     $isManager = !Yii::$app->user->isGuest && Yii::$app->user->identity->is_manager;
@@ -49,11 +49,10 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Просмотреть отклики', 'url' => ['/vacancy/responses']];
     }
     
-    // Если пользователь гость, добавляем пункт меню "Signup"
-    if (Yii::$app->user->isGuest) {
+    /*if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Зерегистрироваться', 'url' => ['/site/signup']];
     }
-    
+    */
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
@@ -95,8 +94,7 @@ jQuery('header').css("margin-top",headerheight);
 
 <footer class="footer mt-auto py-3 text-muted">
     <div class="container">
-        <p class="float-start">&copy; <?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
-        <p class="float-end"><?= Yii::powered() ?></p>
+        <p class="float-start"><?= Html::encode(Yii::$app->name) ?> <?= date('Y') ?></p>
     </div>
 </footer>
 

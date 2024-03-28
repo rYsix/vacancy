@@ -21,16 +21,17 @@ class LoginForm extends Model
      * {@inheritdoc}
      */
     public function rules()
-    {
-        return [
-            // username and password are both required
-            [['username', 'password'], 'required'],
-            // rememberMe must be a boolean value
-            ['rememberMe', 'boolean'],
-            // password is validated by validatePassword()
-            ['password', 'validatePassword'],
-        ];
-    }
+{
+    return [
+        // username and password are both required
+        [['username', 'password'], 'required', 'message' => 'Поле "{attribute}" обязательно для заполнения'],
+        // rememberMe must be a boolean value
+        ['rememberMe', 'boolean'],
+        // password is validated by validatePassword()
+        ['password', 'validatePassword'],
+    ];
+}
+
 
     /**
      * Validates the password.

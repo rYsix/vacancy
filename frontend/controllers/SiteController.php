@@ -35,7 +35,7 @@ class SiteController extends Controller
                     [
                         'actions' => ['signup'],
                         'allow' => true,
-                        'roles' => ['?'],
+                        'roles' => ['@'],
                     ],
                     [
                         'actions' => ['logout'],
@@ -75,13 +75,17 @@ class SiteController extends Controller
      * @return mixed
      */
     public function actionIndex()
-{
-    $vacancy_list = Vacancy::find()->all();
+    {
+        
+        $vacancy_list = Vacancy::find()
+            ->orderBy(['is_active' => SORT_DESC, 'publication_date' => SORT_DESC])
+            ->all();
 
-    return $this->render('index', [
-        'vacancy' => $vacancy_list,
-    ]);
-}
+        return $this->render('index', [
+            'vacancy' => $vacancy_list,
+        ]);
+    }
+
 
     /**
      * Logs in a user.
