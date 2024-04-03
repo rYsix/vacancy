@@ -25,12 +25,13 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 <?= $form->field($model, 'rememberMe')->checkbox()->label('Запомнить меня') ?>
 
+                <!--
                 <div class="my-1 mx-0" style="color:#999;">
                     Если вы забыли пароль, вы можете <?= Html::a('сбросить его', ['site/request-password-reset']) ?>.
                     <br>
                     Нужно новое подтверждение электронной почты? <?= Html::a('Отправить повторно', ['site/resend-verification-email']) ?>
                 </div>
-
+                -->
                 <div class="form-group">
                     <?= Html::submitButton('Войти', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
                 </div>

@@ -68,7 +68,7 @@ class VacancyController extends Controller
             $vacancy = Vacancy::find()->where(['id' => $id])->one();
 
             if ($vacancy === null) {
-                throw new \yii\web\NotFoundHttpException('The requested page does not exist.');
+                throw new \yii\web\NotFoundHttpException('Такой вакансии не существует.');
             }
 
             $model = new VacancyResponseForm();
@@ -86,13 +86,11 @@ class VacancyController extends Controller
                 $response->about = $model->about;
                 $response->email = $model->email;
             
-                // Проверяем, был ли возвращен путь
                 if ($uploadedFilePath !== null) {
                     // Если путь был возвращен, сохраняем его
                     $response->attachment_path = $uploadedFilePath;
                 }
             
-                // Сохраняем запись в базу данных
                 $response->save();
             
                 Yii::$app->session->setFlash('success', 'Ваш отклик успешно отправлен.');
@@ -128,7 +126,7 @@ class VacancyController extends Controller
         
                 if ($vacancy->save()) {
                     Yii::$app->session->setFlash('success', 'Вакансия успешно создана.');
-                    return $this->redirect(['detail', 'id' => $vacancy->id]); // Предполагается, что есть действие view для отображения деталей вакансии
+                    return $this->redirect(['detail', 'id' => $vacancy->id]);
                 } else {
                     Yii::$app->session->setFlash('error', 'Произошла ошибка при сохранении вакансии.');
                 }
@@ -149,10 +147,9 @@ class VacancyController extends Controller
             $formModel = new CreateVacancyForm();
             $formModel->attributes = $vacancy->attributes; // Заполняем атрибуты модели формы значениями из модели вакансии
 
-            if ($formModel->load(Yii::$app->request->post()) && $formModel->validate()) { // Загружаем данные из формы и валидируем модель формы
-                // Обновляем атрибуты модели вакансии значениями из модели формы
+            if ($formModel->load(Yii::$app->request->post()) && $formModel->validate()) {
                 $vacancy->attributes = $formModel->attributes;
-                if ($vacancy->save()) { // Сохраняем модель вакансии
+                if ($vacancy->save()) { 
                     Yii::$app->session->setFlash('success', 'Вакансия успешно отредактирована.');
                     return $this->redirect(['detail', 'id' => $vacancy->id]);
                 }
@@ -168,7 +165,7 @@ class VacancyController extends Controller
             $dataProvider = new ActiveDataProvider([
                 'query' => VacancyResponse::find(),
                 'pagination' => [
-                    'pageSize' => 10, // Укажите количество элементов на странице
+                    'pageSize' => 10, 
                 ],
             ]);
 

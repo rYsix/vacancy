@@ -40,7 +40,7 @@ class VacancyResponseForm extends Model
 {
     if ($this->validate()) {
         if ($this->attachment_file && $this->attachment_file->tempName !== null) {
-            $fileName = 'uploads/vacancy_responces/' . str_replace(' ', '_', $this->full_name) . '_to_vacancy_' . $vacancyId . '/' . 'resume' . '.' . $this->attachment_file->extension;
+            $fileName = '/uploads/vacancy_responces/' . str_replace(' ', '_', $this->full_name) . '_to_vacancy_' . $vacancyId . '/' . 'resume' . '.' . $this->attachment_file->extension;
             $directory = dirname($fileName);
             if (!is_dir($directory)) {
                 mkdir($directory, 0777, true);

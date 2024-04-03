@@ -51,7 +51,7 @@ $this->title = 'Отклики на вакансии';
                     'label' => 'Резюме',
                     'value' => function ($response) {
                         if (!empty($response->attachment_path)) {
-                            return Html::a('<i class="fa fa-file-pdf-o"></i> Скачать резюме', '/frontend/web/' . $response->attachment_path, ['download' => true]);
+                            return Html::a('<i class="fa fa-file-pdf-o"></i> Скачать резюме', $response->attachment_path, ['download' => true]);
                         }
                         return null;
                     },

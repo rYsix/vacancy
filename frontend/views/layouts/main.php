@@ -20,7 +20,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <?php $this->registerCsrfMetaTags() ?>  
     <title><?= Html::encode($this->title) ?></title>
-    <link rel="icon" href="/frontend/web/aues.ico">
+    <link rel="icon" href="/aues.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <?php $this->head() ?>
 </head>
@@ -28,13 +28,14 @@ AppAsset::register($this);
 <?php $this->beginBody() ?>
 
 <header>
+    <!--<img src="/logo_new.png" style="position: fixed; margin-top: 4cm; z-index: -1" alt=""-->
     <?php
     NavBar::begin([
         'brandLabel' => 'Вакансии',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar navbar-expand-md navbar-dark fixed-top',
-            'style' => 'background-color: #015590;',
+            'style' => 'background-color: #015590; height: 70px;',
         ],
     ]);
     $menuItems = [
