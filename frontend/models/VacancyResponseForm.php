@@ -37,15 +37,15 @@ class VacancyResponseForm extends Model
         ];
     }
     public function upload($vacancyId)
-{
+    {
     if ($this->validate()) {
         if ($this->attachment_file && $this->attachment_file->tempName !== null) {
-            $fileName = '/uploads/vacancy_responces/' . str_replace(' ', '_', $this->full_name) . '_to_vacancy_' . $vacancyId . '/' . 'resume' . '.' . $this->attachment_file->extension;
-            $directory = dirname($fileName);
+            $fileName = '/uploads/vacancy_responces' . '/' . str_replace(' ', '_', $this->full_name) . '_to_vacancy_' . $vacancyId . '/' . 'resume_of_' . str_replace(' ', '_', $this->full_name) . '.' . $this->attachment_file->extension;
+            $directory = '.' . dirname($fileName);
             if (!is_dir($directory)) {
                 mkdir($directory, 0777, true);
             }
-            if ($this->attachment_file->saveAs($fileName)) {
+            if ($this->attachment_file->saveAs('.' . $fileName)) {
                 return $fileName;
             } else {
                 return null;
@@ -56,7 +56,7 @@ class VacancyResponseForm extends Model
     } else {
         return false; 
     }
-}
+    }
 
 
 

@@ -36,7 +36,7 @@ $this->title = 'Вакансии';
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-sm btn-outline-secondary">Откликнуться</button>
                                     </div>
-                                    <small class="text-muted">Публикация: <?=  Yii::$app->formatter->asDate($item->publication_date) ?></small>
+                                    <small class="text-muted">Публикация: <?= $item->publication_date ? date('Y-m-d', strtotime($item->publication_date)) : 'Дата не установлена' ?></small>
                                 </div>
                             </div>
                         </div>

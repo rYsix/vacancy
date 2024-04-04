@@ -23,14 +23,4 @@ class VacancyResponse extends ActiveRecord
     {
         return '{{%vacancy_response}}';
     }
-    
-    public function upload()
-    {
-        if ($this->validate()) {
-            $this->uploaded_file->saveAs('uploads/' . $this->uploaded_file->baseName . '.' . $this->uploaded_file->extension);
-            return true;
-        } else {
-            return false;
-        }
-    }
 }

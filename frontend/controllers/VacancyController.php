@@ -75,11 +75,8 @@ class VacancyController extends Controller
 
             if ($model->load(Yii::$app->request->post())) {
                 $model->attachment_file = UploadedFile::getInstance($model, 'attachment_file');
-            
-                // Вызываем функцию upload() и сохраняем возвращенный путь
                 $uploadedFilePath = $model->upload($id);
             
-                // Ваш код для сохранения данных из формы в базу данных
                 $response = new VacancyResponse();
                 $response->vacancy_id = $id;
                 $response->full_name = $model->full_name;
@@ -87,7 +84,6 @@ class VacancyController extends Controller
                 $response->email = $model->email;
             
                 if ($uploadedFilePath !== null) {
-                    // Если путь был возвращен, сохраняем его
                     $response->attachment_path = $uploadedFilePath;
                 }
             

@@ -1,1 +1,4 @@
 Options -Indexes
+
+ErrorDocument 403 /
+
