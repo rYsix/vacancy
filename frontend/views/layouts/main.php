@@ -40,6 +40,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Главная', 'url' => ['/site/index']],
+        ['label' => 'ППС', 'url' => ['/pps/pps']]
         //['label' => 'О сайте', 'url' => ['/site/about']],
         //['label' => 'Обратная связь', 'url' => ['/site/contact']],
     ];

@@ -88,8 +88,13 @@ $responseForm = new VacancyResponseForm(); // Создаем экземпляр 
                                                 <?= $form->field($responseForm, 'about')->textarea(['rows' => 6])->label('О себе (курс, направление)') ?>
                                             </div>
                                             <div class="mb-3">
-                                                <?= $form->field($responseForm, 'attachment_file')->fileInput()->label('Прикрепить резюме   ') ?>
+                                                <?= $form->field($responseForm, 'attachment_file')->fileInput()->label('Прикрепить резюме (только PDF)') ?>
                                             </div>
+                                            <div class="form-check">
+                                                <input type="checkbox" class="form-check-input" id="checkbox" required>
+                                                <label class="form-check-label" for="checkbox">Я подтверждаю ознакомление с правилами обработки и хранения информации.</label>
+                                            </div>
+                                            <br>
                                             <div class="form-group">
                                             <?= Html::submitButton('Отправить', ['class' => 'btn btn-primary']) ?>
                                     </div>

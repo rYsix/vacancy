@@ -5,6 +5,26 @@
 $this->title = 'Вакансии';
 ?>
 
+<a href="/pps/pps" class="vacancy-card-link" style="text-decoration: none; color: inherit;">
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-12">
+                <div class="card vacancy-card">
+                    <div class="card-body">
+                        <h4 class="card-title text-center text-primary">Объявление!</h4>
+                        <h5 class="card-text text-center">Некоммерческое акционерное общество «Алматинский университет энергетики и связи имени Гумарбека Даукеева» объявляет конкурс на должности заведующего кафедрой, профессорско-преподавательского состава на 2024-2025 учебный год.</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</a>
+
+
+
+
+
+
 <div class="site-index">
     <div class=" bg-transparent rounded-3">
         <div class="container-fluid py-5 text-center">
